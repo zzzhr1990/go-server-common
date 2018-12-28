@@ -11,3 +11,8 @@ func CreateNew(config *DatabaseConfig, entity ...interface{}) (*SingleCurdRepo, 
 	xp := &SingleCurdRepo{BaseRepo: BaseRepo{TableManager: &SingleCurdRepo{}}}
 	return xp, xp.Initializate(config, entity...)
 }
+
+//Version the Version
+func Version() string {
+	return "1.2.1"
+}
