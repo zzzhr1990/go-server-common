@@ -39,11 +39,16 @@ func (manager *DefaultTableManager) Close() error {
 func (manager *DefaultTableManager) Initializate(config *DatabaseConfig, entity ...interface{}) error {
 	//manager.masterDBs = make(map[string]*gorm.DB)
 	manager.Config = config
-	d, err := gorm.Open(config.DatabaseDialect, config.MasterDatabaseConnectionString)
-	if err != nil {
-		log.Printf("Cannot Initializate %v", err)
-		return err
+	d := config.DbConnection
+	var err error
+	if d == nil {
+		d, err = gorm.Open(config.DatabaseDialect, config.MasterDatabaseConnectionString)
+		if err != nil {
+			log.Printf("Cannot Initializate %v", err)
+			return err
+		}
 	}
+
 	manager.DefaultTable = d.Table(config.TableNamePrefix)
 	if manager.DefaultTable.Error != nil {
 		log.Printf("Cannot Initializate %v", manager.DefaultTable.Error)
