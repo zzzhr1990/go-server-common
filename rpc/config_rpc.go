@@ -12,7 +12,8 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-func runAndHold(s *grpc.Server, portNumber int) {
+//RunAndHold HLD
+func RunAndHold(s *grpc.Server, portNumber int) {
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", portNumber))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
