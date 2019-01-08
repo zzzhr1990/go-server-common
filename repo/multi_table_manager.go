@@ -92,6 +92,26 @@ func closeTables(key interface{}, value interface{}) bool {
 	return true
 }
 
+//Initializate Initializate new
+func (manager *MultiTableManager) Initializate(config *DatabaseConfig, entity ...interface{}) error {
+	//manager.Config = config
+	manager.tables = &sync.Map{}
+	manager.lock = new(sync.RWMutex)
+	manager.entity = entity
+	d := config.DbConnection
+	var err error
+	if d == nil {
+		d, err = gorm.Open(config.DatabaseDialect, config.MasterDatabaseConnectionString)
+		if err != nil {
+			log.Printf("Cannot Initializate %v", err)
+			return err
+		}
+	}
+	manager.baseDB = d
+	return nil
+}
+
+/*
 // CreateNewMultiTableManager instance
 func CreateNewMultiTableManager(baseDB *gorm.DB, entity ...interface{}) *MultiTableManager {
 
@@ -102,6 +122,7 @@ func CreateNewMultiTableManager(baseDB *gorm.DB, entity ...interface{}) *MultiTa
 		entity: entity,
 	}
 }
+*/
 
 /*
 var (
