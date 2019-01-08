@@ -19,6 +19,7 @@ type MultiTableManager struct {
 	baseDB *gorm.DB
 	lock   *sync.RWMutex
 	entity []interface{}
+	Config *DatabaseConfig
 }
 
 //GetTable Imp get default table
@@ -95,6 +96,7 @@ func closeTables(key interface{}, value interface{}) bool {
 //Initializate Initializate new
 func (manager *MultiTableManager) Initializate(config *DatabaseConfig, entity ...interface{}) error {
 	//manager.Config = config
+	manager.Config = config
 	manager.tables = &sync.Map{}
 	manager.lock = new(sync.RWMutex)
 	manager.entity = entity
