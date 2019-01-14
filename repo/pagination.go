@@ -9,10 +9,10 @@ import (
 
 //Paginator for page use
 type Paginator struct {
-	TotalCount int //`json:"total_record"`
-	TotalPage  int // `json:"total_page"`
-	Page       int //`json:"page"`
-	PageSize   int //`json:"prev_page"`
+	TotalCount int64 //`json:"total_record"`
+	TotalPage  int32 // `json:"total_page"`
+	Page       int32 //`json:"page"`
+	PageSize   int32 //`json:"prev_page"`
 }
 
 // DoPage ip
@@ -38,7 +38,7 @@ func Page(table *gorm.DB, p *Paginator, list interface{}) error {
 		log.Printf("Query countRecords %v", err)
 		return err
 	}
-	p.TotalPage = int(math.Ceil(float64(p.TotalCount) / float64(p.PageSize)))
+	p.TotalPage = int32(math.Ceil(float64(p.TotalCount) / float64(p.PageSize)))
 	if p.TotalPage < p.Page {
 		p.Page = p.TotalPage
 	}
@@ -46,7 +46,7 @@ func Page(table *gorm.DB, p *Paginator, list interface{}) error {
 	return nil
 }
 
-func countRecords(table *gorm.DB, done chan bool, count *int) {
+func countRecords(table *gorm.DB, done chan bool, count *int64) {
 	err := table.Count(count).Error
 	if err != nil {
 		log.Printf("Query countRecords %v", err)
