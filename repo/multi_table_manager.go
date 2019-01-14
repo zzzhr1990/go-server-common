@@ -39,10 +39,10 @@ func (manager *MultiTableManager) GetMultiTable(tableName string) (*gorm.DB, err
 	}
 	// miss, lock to prevent concurrent.
 	manager.lock.Lock()
+	defer manager.lock.Unlock()
 	data, ok = manager.tables.Load(tableName)
 	// dounle checking
 	if ok {
-		manager.lock.Unlock()
 		db, suc := data.(*gorm.DB)
 		if !suc {
 			return nil, errors.New("Convert DB instance Error")
@@ -54,19 +54,18 @@ func (manager *MultiTableManager) GetMultiTable(tableName string) (*gorm.DB, err
 	table := manager.baseDB.Table(tableName)
 	if table.Error != nil {
 		log.Printf("Switch to table %v err, %v", tableName, table.Error)
-		manager.lock.Unlock()
 		return nil, table.Error
 	}
 	if len(manager.entity) > 0 {
 		tb := table.AutoMigrate(manager.entity...)
 		if tb.Error != nil {
 			log.Printf("AutoMigrate table %v err, %v", tableName, tb.Error)
+
+			return nil, tb.Error
 		}
-		manager.lock.Unlock()
-		return nil, tb.Error
+
 	}
 	manager.tables.Store(tableName, table)
-	manager.lock.Unlock()
 	return table, nil
 }
 
