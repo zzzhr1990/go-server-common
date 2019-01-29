@@ -58,9 +58,9 @@ func (manager *MultiTableManager) GetMultiTable(tableName string) (*gorm.DB, err
 	}
 	if len(manager.entity) > 0 {
 		tb := table.AutoMigrate(manager.entity...)
+		log.Printf("Auto Migrate table %v", tableName)
 		if tb.Error != nil {
 			log.Printf("AutoMigrate table %v err, %v", tableName, tb.Error)
-
 			return nil, tb.Error
 		}
 
