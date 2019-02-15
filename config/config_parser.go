@@ -4,11 +4,12 @@ import (
 	"errors"
 	"flag"
 	"io/ioutil"
-	"log"
 	"os"
 	"os/exec"
 	"strings"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 
 	//"github.com/franela/goreq"
 	"net/http"

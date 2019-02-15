@@ -1,8 +1,9 @@
 package repo
 
 import (
-	"log"
 	"math"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/jinzhu/gorm"
 )

@@ -2,8 +2,9 @@ package repo
 
 import (
 	"errors"
-	"log"
 	"sync"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/jinzhu/gorm"
 )
