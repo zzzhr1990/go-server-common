@@ -59,8 +59,11 @@ func LoadYamlFromURL(configURL string, out interface{}) error {
 	return nil
 }
 
-// LoadYamlFromFlag load config
-func LoadYamlFromFlag(out interface{}) error {
+// LoadYaml load config
+func LoadYaml(out interface{}) error {
+	log.SetFormatter(&log.TextFormatter{
+		FullTimestamp: true,
+	})
 	configPath := ""
 	configFile := ""
 	flag.StringVar(&configPath, "config-path", "", "Config file path")
