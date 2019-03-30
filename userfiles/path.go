@@ -7,7 +7,7 @@ import (
 	gString "github.com/zzzhr1990/go-server-common/strings"
 )
 
-// FormatPath to format windows path like unix path
+// FormatPath to format windows path like unix path but
 func FormatPath(path string) string {
 	cleanStr := filepath.Clean(strings.Replace(strings.Trim(path, " \r\n\t"), "\\", "/", -1))
 	if cleanStr == "." {
