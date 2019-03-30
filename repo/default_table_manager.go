@@ -8,14 +8,14 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// DefaultTableManager default
+// DefaultTableManager default 3
 type DefaultTableManager struct {
 	//masterDBs map[string]*gorm.DB
 	Config       *DatabaseConfig
 	DefaultTable *gorm.DB
 }
 
-//GetTable Imp get default table
+//GetTable Imp get default table3
 func (manager *DefaultTableManager) GetTable(entity interface{}, read bool) (*gorm.DB, error) {
 
 	if manager.Config.Sharding {
