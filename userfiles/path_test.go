@@ -26,13 +26,8 @@ func TestFormatPath(t *testing.T) {
 		So(util.FormatPath("../abc "), ShouldEqual, "/abc")
 		So(util.FormatPath(" xnewu"), ShouldEqual, "/xnewu")
 		So(util.FormatPath(" xnewu.j"), ShouldEqual, "/xnewu.j")
-		sx, _ := util.GetFormatedIdentity("/abc", true)
+		sx, _ := util.GetFormatedIdentity("/abc")
 		So(sx, ShouldEqual, "482a7143ac747eff5e5a5992a6016d65")
-		sx, _ = util.GetFormatedIdentity("/Abc", true)
-		So(sx, ShouldEqual, "482a7143ac747eff5e5a5992a6016d65")
-		sx, _ = util.GetFormatedIdentity("/Abc", false)
-		So(sx, ShouldEqual, "a3189deb2541249c196149967a5a2a11")
-		sx, _ = util.GetFormatedIdentity("/////Abc", false)
-		So(sx, ShouldEqual, "a3189deb2541249c196149967a5a2a11")
+
 	})
 }

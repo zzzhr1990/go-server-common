@@ -23,15 +23,13 @@ func FormatPath(path string) string {
 }
 
 // getIdentity calc a file's uuid.
-func getIdentity(path string, ignoreCase bool) string {
-	if ignoreCase {
-		return gString.MD5String(strings.ToLower(path))
-	}
+func getIdentity(path string) string {
+
 	return gString.MD5String(path)
 }
 
 // GetFormatedIdentity calc a file's identity.
-func GetFormatedIdentity(path string, ignoreCase bool) (string, string) {
+func GetFormatedIdentity(path string) (string, string) {
 	formated := FormatPath(path)
-	return getIdentity(formated, ignoreCase), formated
+	return getIdentity(formated), formated
 }
