@@ -11,8 +11,9 @@ import (
 // DefaultTableManager default 3
 type DefaultTableManager struct {
 	//masterDBs map[string]*gorm.DB
-	Config       *DatabaseConfig
-	DefaultTable *gorm.DB
+	Config        *DatabaseConfig
+	DefaultTable  *gorm.DB
+	managedBySelf bool
 }
 
 //GetTable Imp get default table3
@@ -33,6 +34,9 @@ func (manager *DefaultTableManager) Close() error {
 	if manager.Config.Sharding {
 		return errors.New("You should define close function")
 	}
+	if manager.managedBySelf {
+		//
+	}
 	return nil
 }
 
@@ -48,6 +52,7 @@ func (manager *DefaultTableManager) Initializate(config *DatabaseConfig, entity 
 			log.Printf("Cannot Initializate %v", err)
 			return err
 		}
+		manager.managedBySelf = true
 	}
 
 	manager.DefaultTable = d.Table(config.TableNamePrefix)
