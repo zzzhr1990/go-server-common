@@ -7,4 +7,6 @@ const (
 	UserRPCServiceName = "go-user-center"
 	//CloudSroreRPCServiceName file
 	CloudSroreRPCServiceName = "go-cloud-store"
+	//RemoteTaskRPCServiceName file
+	RemoteTaskRPCServiceName = "go-remote-task"
 )
