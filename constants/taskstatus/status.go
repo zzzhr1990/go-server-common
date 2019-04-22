@@ -2,17 +2,17 @@ package taskstatus
 
 const (
 	//Add tile
-	Add = 100
+	Add int32 = 100
 	//Queue the process fetch but not start
-	Queue = 200
+	Queue int32 = 200
 	//Process the
-	Process = 300
+	Process int32 = 300
 	//Pause paused
-	Pause = 400
+	Pause int32 = 400
 	//Stop tje
-	Stop = 500
+	Stop int32 = 500
 	//Fail the task failed.
-	Fail = 900
+	Fail int32 = 900
 	//Success the task success
-	Success = 1000
+	Success int32 = 1000
 )

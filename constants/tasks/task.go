@@ -2,5 +2,5 @@ package tasks
 
 const (
 	//FileMimeDetect detect file mime
-	FileMimeDetect = 1001
+	FileMimeDetect int32 = 1001
 )
