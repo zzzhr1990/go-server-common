@@ -17,12 +17,13 @@ type Paginator struct {
 }
 
 // DoPage ip
-func (p *Paginator) DoPage(table *gorm.DB, list interface{}) error {
-	return Page(table, p, list)
+func (p *Paginator) DoPage(table *gorm.DB, list interface{}, order []string) error {
+	//table.Or
+	return Page(table, p, list, order)
 }
 
 //Page so
-func Page(table *gorm.DB, p *Paginator, list interface{}) error {
+func Page(table *gorm.DB, p *Paginator, list interface{}, order []string) error {
 
 	if p.Page < 1 {
 		p.Page = 1
@@ -33,6 +34,11 @@ func Page(table *gorm.DB, p *Paginator, list interface{}) error {
 	done := make(chan bool, 1)
 	go countRecords(table, done, &p.TotalCount)
 	offset := (p.Page - 1) * p.PageSize
+	if len(order) > 0 {
+		for _, element := range order {
+			table = table.Order(element)
+		}
+	}
 	err := table.Limit(p.PageSize).Offset(offset).Find(list).Error
 	<-done
 	if err != nil {

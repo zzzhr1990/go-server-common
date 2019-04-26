@@ -42,7 +42,7 @@ func TestPagination(t *testing.T) {
 		}
 		var users []*Model
 		pg := &repo.Paginator{PageSize: 5}
-		So(pg.DoPage(table.Where("uuid > ?", 30), &users), ShouldBeNil)
+		So(pg.DoPage(table.Where("uuid > ?", 30), &users, []string{}), ShouldBeNil)
 		So(pg.TotalCount, ShouldEqual, 20)
 		So(len(users), ShouldEqual, 5)
 		So(pg.TotalPage, ShouldEqual, 4)
@@ -51,7 +51,7 @@ func TestPagination(t *testing.T) {
 		So(users[1].Name, ShouldEqual, "name_32")
 
 		pg.PageSize = 50
-		So(repo.Page(table.Where("uuid > ?", 10), pg, &users), ShouldBeNil)
+		So(repo.Page(table.Where("uuid > ?", 10), pg, &users, []string{}), ShouldBeNil)
 		So(pg.TotalCount, ShouldEqual, 40)
 		So(len(users), ShouldEqual, 40)
 		So(pg.TotalPage, ShouldEqual, 1)
