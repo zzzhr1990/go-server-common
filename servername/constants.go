@@ -11,7 +11,6 @@ const (
 	RemoteTaskRPCServiceName = "go-remote-task"
 	//OfflineDownloadUserServiceName offline
 	OfflineDownloadUserServiceName = "go-user-offline-download"
-
 	//OfflineDownloadSystemServiceName server service
 	OfflineDownloadSystemServiceName = "go-system-offline-download"
 )
