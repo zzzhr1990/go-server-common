@@ -22,4 +22,6 @@ const (
 	OfflineDownloadMagnet int32 = 5050
 	// OfflineDownloadEd2k ED2K
 	OfflineDownloadEd2k int32 = 5060
+	// OfflineCopyDirect if file completed, just copy user file
+	OfflineCopyDirect int32 = 6010
 )
