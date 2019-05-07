@@ -1,5 +1,6 @@
 package taskstatus
 
+// github.com/zzzhr1990/go-server-common/constants/taskstatus
 const (
 	//Add tile
 	Add int32 = 100

@@ -59,3 +59,30 @@ func TryPostJSONAndUnMarshal(url string, postData interface{}, recvData interfac
 		time.Sleep(2 * time.Second)
 	}
 }
+
+//TryPostJSONAndUnMarshalStandard post json
+func TryPostJSONAndUnMarshalStandard(url string, postData interface{}, recvData interface{}, tryTime int) error {
+	//success := false
+	for {
+		cs := &StandardResponseEntity{}
+		err := PostJSONAndUnMarshal(url, postData, cs)
+		if err == nil && cs.Success {
+			if recvData != nil {
+				err = cs.DecodeRaw(recvData)
+				if err != nil {
+					log.Errorf("decode inner json failed %v", err)
+					return err
+				}
+			}
+			return nil
+		}
+		// if cs.Success {}
+		//
+		tryTime--
+		if tryTime < 1 {
+			return err
+		}
+		log.Errorf("Request API %v error %v, retrying", url, err)
+		time.Sleep(2 * time.Second)
+	}
+}
