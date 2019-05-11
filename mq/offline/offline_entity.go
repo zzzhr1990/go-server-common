@@ -18,6 +18,12 @@ type MqEntity struct {
 	Data     json.RawMessage
 }
 
+// ToJSONByte info
+func (mqEntity *MqEntity) ToJSONByte() []byte {
+	i, _ := json.Marshal(mqEntity)
+	return i
+}
+
 /*
 // ProgressChangeInfo infp
 type ProgressChangeInfo struct {
