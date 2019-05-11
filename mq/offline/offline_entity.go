@@ -13,10 +13,12 @@ const (
 
 // MqEntity for MQ
 type MqEntity struct {
-	Type int32
-	Data json.RawMessage
+	Type     int32
+	Identity string
+	Data     json.RawMessage
 }
 
+/*
 // ProgressChangeInfo infp
 type ProgressChangeInfo struct {
 	CurrentSize int64 `json:"currentSize"`
@@ -28,3 +30,4 @@ func (info *ProgressChangeInfo) ToJSON() []byte {
 	i, _ := json.Marshal(info)
 	return i
 }
+*/
