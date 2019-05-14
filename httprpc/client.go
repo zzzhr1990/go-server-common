@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"time"
 
+	"errors"
+
 	log "github.com/sirupsen/logrus"
 )
 
@@ -76,8 +78,10 @@ func TryPostJSONAndUnMarshalStandard(url string, postData interface{}, recvData 
 			}
 			return nil
 		}
-		// if cs.Success {}
-		//
+		if err == nil {
+			log.Errorf("access api error %v:%v", cs.Code, cs.Message)
+			return errors.New(cs.Message)
+		}
 		tryTime--
 		if tryTime < 1 {
 			return err
