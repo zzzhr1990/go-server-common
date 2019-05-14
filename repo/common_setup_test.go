@@ -23,7 +23,7 @@ const (
 
 //Model Used for test
 type Model struct {
-	UUID     uint64 `gorm:"primary_key;" qingzhen_multi_table:"true;"`
+	UUID     int64  `gorm:"primary_key;" qingzhen_multi_table:"true;"`
 	Name     string `gorm:"type:varchar(128);"`
 	Salt     string `gorm:"type:varchar(32);"`
 	Password string `gorm:"type:varchar(128);"`
@@ -31,14 +31,14 @@ type Model struct {
 
 	CountryCode string `gorm:"type:varchar(32);index:phone_code_idx"`
 	Phone       string `gorm:"type:varchar(128);index:phone_code_idx"`
-	CreateTime  uint64
+	CreateTime  int64
 	CreateIP    string `gorm:"type:varchar(128);"`
 	// Seems SSID no need
 
 	// "ssid": {},
 	Icon          string `gorm:"type:varchar(128);"`
-	SpaceUsed     uint64
-	SpaceCapacity uint64
+	SpaceUsed     int64
+	SpaceCapacity int64
 	Type          uint `gorm:"primary_key;type:int(9);"`
 	Status        uint `gorm:"primary_key;type:int(9);"`
 	Version       uint `gorm:"primary_key;type:int(6);"`

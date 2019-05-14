@@ -29,7 +29,7 @@ func TestPagination(t *testing.T) {
 				Email:         fmt.Sprintf("mail-%v@test.balabala.com", a),
 				CountryCode:   "86",
 				Phone:         fmt.Sprintf("138001%v", a),
-				CreateTime:    uint64(time.Now().Unix()),
+				CreateTime:    time.Now().Unix(),
 				CreateIP:      "127.0.0.1",
 				SpaceUsed:     0,
 				SpaceCapacity: 6 * 1024 * 1024 * 1024 * 1024,
