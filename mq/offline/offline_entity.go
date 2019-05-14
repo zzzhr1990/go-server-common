@@ -1,5 +1,7 @@
 package offline
 
+//  github.com/zzzhr1990/go-server-common/mq/offline
+
 import (
 	"encoding/json"
 )
@@ -9,6 +11,8 @@ const (
 	ProgressChangeEvent int32 = 2010
 	// FileCompleteEvent change
 	FileCompleteEvent int32 = 2020
+	// StatusChangeEvent new status
+	StatusChangeEvent int32 = 2050
 )
 
 // MqEntity for MQ
