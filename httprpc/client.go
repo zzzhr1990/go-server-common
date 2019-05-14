@@ -57,7 +57,12 @@ func TryPostJSONAndUnMarshal(url string, postData interface{}, recvData interfac
 		if tryTime < 1 {
 			return err
 		}
-		log.Errorf("Request API %v error %v, retrying", url, err)
+		if err != nil {
+			log.Errorf("Request API %v error %v, retrying", url, err)
+		} else {
+			log.Errorf("Request API %v error, retrying", url)
+		}
+
 		time.Sleep(2 * time.Second)
 	}
 }
