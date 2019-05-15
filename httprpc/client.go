@@ -84,7 +84,7 @@ func TryPostJSONAndUnMarshalStandard(url string, postData interface{}, recvData 
 			return nil
 		}
 		if err == nil {
-			log.Errorf("access api error %v:%v", cs.Code, cs.Message)
+			log.Errorf("access api error %v:%v", url, cs.Message)
 			return errors.New(cs.Message)
 		}
 		tryTime--

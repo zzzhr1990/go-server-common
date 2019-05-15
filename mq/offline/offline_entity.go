@@ -7,12 +7,16 @@ import (
 )
 
 const (
+	// MetaDataEvent when meta change
+	MetaDataEvent int32 = 2005
 	// ProgressChangeEvent change
 	ProgressChangeEvent int32 = 2010
 	// FileCompleteEvent change
 	FileCompleteEvent int32 = 2020
 	// StatusChangeEvent new status
 	StatusChangeEvent int32 = 2050
+	// TaskCompleteEvent when task complete
+	TaskCompleteEvent int32 = 2080
 )
 
 // MqEntity for MQ
