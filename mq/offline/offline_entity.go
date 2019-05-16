@@ -15,6 +15,8 @@ const (
 	FileCompleteEvent int32 = 2020
 	// StatusChangeEvent new status
 	StatusChangeEvent int32 = 2050
+	// UserFileCopyEvent when task start
+	UserFileCopyEvent int32 = 2060
 	// TaskCompleteEvent when task complete
 	TaskCompleteEvent int32 = 2080
 )
