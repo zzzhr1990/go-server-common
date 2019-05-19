@@ -19,12 +19,8 @@ func PostJSONAndUnMarshal(url string, postData interface{}, recvData interface{}
 		log.Errorf("Cannot Marshal json %v", err)
 		return err
 	}
-	log.Info("------------------QUERY----------------")
-	log.Infof("POST: %v", url)
-	log.Infof(string(data))
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(data))
 	// req.Header.Set("X-Custom-Header", "myvalue")
-	log.Info("------------------QUERY----------------")
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
@@ -41,9 +37,6 @@ func PostJSONAndUnMarshal(url string, postData interface{}, recvData interface{}
 		return err
 	}
 	err = json.Unmarshal(responseBody, recvData)
-	log.Info("------------------RECV----------------")
-	log.Infof("recv: %v", string(responseBody))
-	log.Info("======================================")
 	if err != nil {
 		log.Errorf("Http Api request Unmarshal error %v", err)
 		return err
