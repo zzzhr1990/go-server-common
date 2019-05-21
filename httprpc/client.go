@@ -38,7 +38,7 @@ func PostJSONAndUnMarshal(url string, postData interface{}, recvData interface{}
 	}
 	err = json.Unmarshal(responseBody, recvData)
 	if err != nil {
-		log.Errorf("Http Api request Unmarshal error %v", err)
+		log.Errorf("Http Api request Unmarshal error %v, recv: %v", err, string(responseBody))
 		return err
 	}
 	return nil
