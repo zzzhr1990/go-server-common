@@ -44,6 +44,33 @@ func PostJSONAndUnMarshal(url string, postData interface{}, recvData interface{}
 	return nil
 }
 
+//GetJSONAndUnMarshal post json
+func GetJSONAndUnMarshal(url string, recvData interface{}) error {
+	req, err := http.NewRequest("GET", url, nil)
+	// req.Header.Set("X-Custom-Header", "myvalue")
+	// req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Errorf("Http Api request err %v", err)
+		return err
+	}
+	defer resp.Body.Close()
+
+	responseBody, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Errorf("Decode Http body err %v", err)
+		return err
+	}
+	err = json.Unmarshal(responseBody, recvData)
+	if err != nil {
+		log.Errorf("Http Api request Unmarshal error %v, recv: %v", err, string(responseBody))
+		return err
+	}
+	return nil
+}
+
 //TryPostJSONAndUnMarshal post json
 func TryPostJSONAndUnMarshal(url string, postData interface{}, recvData interface{}, tryTime int) error {
 	//success := false
