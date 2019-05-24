@@ -2,13 +2,13 @@ package strings
 
 import "encoding/base64"
 
-//URLSafeEncode encode bytes
-func URLSafeEncode(data []byte) string {
+// Base64URLSafeEncode encode bytes
+func Base64URLSafeEncode(data []byte) string {
 	return base64.URLEncoding.EncodeToString(data)
 }
 
-//URLSafeEncodeString encode strings
-func URLSafeEncodeString(str string) string {
+// Base64URLSafeEncodeString encode strings
+func Base64URLSafeEncodeString(str string) string {
 	return base64.URLEncoding.EncodeToString([]byte(str))
 }
 
