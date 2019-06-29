@@ -9,6 +9,8 @@ import (
 	"strings"
 	"time"
 
+	"encoding/xml"
+
 	log "github.com/sirupsen/logrus"
 
 	//"github.com/franela/goreq"
@@ -52,6 +54,32 @@ func LoadYamlFromURL(configURL string, out interface{}) error {
 	}
 	body, err := ioutil.ReadAll(resp.Body)
 	dErr := yaml.Unmarshal(body, out)
+	if dErr != nil {
+		log.Printf("Decode yaml file error %v #%v ", configURL, dErr)
+		return dErr
+	}
+	return nil
+}
+
+// LoadXMLFromURL load remote
+func LoadXMLFromURL(configURL string, out interface{}) error {
+	tr := &http.Transport{
+		MaxIdleConns:       10,
+		IdleConnTimeout:    30 * time.Second,
+		DisableCompression: true,
+	}
+	client := &http.Client{Transport: tr}
+	resp, err := client.Get(configURL)
+	if err != nil {
+		// handle error
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return errors.New("http: read file failed")
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	dErr := xml.Unmarshal(body, out)
 	if dErr != nil {
 		log.Printf("Decode yaml file error %v #%v ", configURL, dErr)
 		return dErr
