@@ -8,6 +8,16 @@ import (
 	gString "github.com/zzzhr1990/go-server-common/strings"
 )
 
+// GetFormatedFileName GEN
+func GetFormatedFileName(path string) string {
+	sd := strings.Split(path, "/")
+	le := len(sd)
+	if le < 1 {
+		return ""
+	}
+	return sd[le-1]
+}
+
 // FormatPath to format windows path like unix path but
 func FormatPath(path string) string {
 	// cleanStr := strings.Replace(path, ".", "", -1)
