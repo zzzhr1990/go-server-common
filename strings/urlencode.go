@@ -1,6 +1,9 @@
 package strings
 
-import "net/url"
+import (
+	"net/url"
+	"strings"
+)
 
 //EncodeURI encode strings to url safe
 func EncodeURI(source string) string {
@@ -12,6 +15,17 @@ func EncodeURI(source string) string {
 
 	return u.String()
 
+}
+
+// EncodeURIComponent encode url
+func EncodeURIComponent(source string) string {
+	return url.QueryEscape(source)
+}
+
+// EncodeURIComponentCap like js.
+func EncodeURIComponentCap(source string) string {
+	r := url.QueryEscape(source)
+	return strings.Replace(r, "+", "%20", -1)
 }
 
 /*
