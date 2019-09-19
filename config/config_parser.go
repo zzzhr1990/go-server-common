@@ -35,8 +35,7 @@ func parseYaml(yamlPath string, out interface{}) error {
 	return nil
 }
 
-// LoadYamlFromURL load remote
-func LoadYamlFromURL(configURL string, out interface{}) error {
+func loadYamlFromURL(configURL string, out interface{}) error {
 	tr := &http.Transport{
 		MaxIdleConns:       10,
 		IdleConnTimeout:    30 * time.Second,
@@ -59,6 +58,26 @@ func LoadYamlFromURL(configURL string, out interface{}) error {
 		return dErr
 	}
 	return nil
+}
+
+// LoadYamlFromURL load remote
+func LoadYamlFromURL(configURL string, out interface{}) error {
+	err := loadYamlFromURL(configURL, out)
+	if err != nil {
+		tryTime := 30
+		for tryTime > 0 && err != nil {
+			tryTime = tryTime - 1
+			time.Sleep(time.Second * 5)
+			err = loadYamlFromURL(configURL, out)
+			if err != nil {
+				log.Errorf("load config: %v err %v, retry...%v", configURL, err, tryTime)
+			}
+		}
+		if err != nil {
+			log.Errorf("load config give up %v", err)
+		}
+	}
+	return err
 }
 
 // LoadXMLFromURL load remote
