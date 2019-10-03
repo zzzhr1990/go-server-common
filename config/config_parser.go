@@ -13,7 +13,6 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	//"github.com/franela/goreq"
 	"net/http"
 
 	yaml "gopkg.in/yaml.v2"

@@ -16,11 +16,3 @@ func Base64URLSafeEncodeString(str string) string {
 func Base64URLSafeDecodeString(str string) ([]byte, error) {
 	return base64.URLEncoding.DecodeString(str)
 }
-
-/*
-// Base64URLSafeDecode encode strings
-func Base64URLSafeDecode(bytes []byte) ([]byte, error) {
-	return base64.URLEncoding.De
-}
-
-*/
