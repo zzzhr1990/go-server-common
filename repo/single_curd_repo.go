@@ -1,5 +1,6 @@
 package repo
 
+/*
 //SingleCurdRepo Default imp
 type SingleCurdRepo struct {
 	DefaultTableManager
@@ -16,3 +17,4 @@ func CreateNew(config *DatabaseConfig, entity ...interface{}) (*SingleCurdRepo, 
 func Version() string {
 	return "1.2.1"
 }
+*/

@@ -1,5 +1,6 @@
 package repo_test
 
+/*
 import (
 	"testing"
 
@@ -12,3 +13,4 @@ func TestVersion(t *testing.T) {
 		So(repo.Version(), ShouldEqual, repo.Version())
 	})
 }
+*/

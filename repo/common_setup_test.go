@@ -1,5 +1,6 @@
 package repo_test
 
+/*
 import (
 	"testing"
 
@@ -80,3 +81,4 @@ func createDefaultConfig() *repo.DatabaseConfig {
 	dbConfig.TableNamePrefix = "db_test_table"
 	return dbConfig
 }
+*/

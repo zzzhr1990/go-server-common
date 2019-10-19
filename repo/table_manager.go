@@ -1,5 +1,6 @@
 package repo
 
+/*
 import "github.com/jinzhu/gorm"
 
 //TableManager ta
@@ -8,3 +9,5 @@ type TableManager interface {
 	Initializate(config *DatabaseConfig, entity ...interface{}) error
 	Close() error
 }
+
+*/

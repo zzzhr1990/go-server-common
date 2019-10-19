@@ -1,5 +1,6 @@
 package repo
 
+/*
 import (
 	"errors"
 
@@ -72,3 +73,4 @@ func (manager *DefaultTableManager) Initializate(config *DatabaseConfig, entity 
 
 	return nil
 }
+*/
