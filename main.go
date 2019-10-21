@@ -1,10 +1,13 @@
 package main
 
-import "fmt"
-import "github.com/zzzhr1990/go-server-common/repo"
-import "github.com/zzzhr1990/go-server-common/config"
-import "encoding/xml"
+import (
+	"encoding/xml" // import "github.com/zzzhr1990/go-server-common/repo"
+	"fmt"
 
+	"github.com/zzzhr1990/go-server-common/config"
+)
+
+// WopiDiscovery WP
 type WopiDiscovery struct {
 	XMLName xml.Name `xml:"wopi-discovery"`
 	Text    string   `xml:",chardata"`
@@ -14,7 +17,7 @@ type WopiDiscovery struct {
 		App  []struct {
 			Text         string `xml:",chardata"`
 			Name         string `xml:"name,attr"`
-			FavIconUrl   string `xml:"favIconUrl,attr"`
+			FavIconURL   string `xml:"favIconUrl,attr"`
 			CheckLicense string `xml:"checkLicense,attr"`
 			Action       []struct {
 				Text      string `xml:",chardata"`
@@ -44,7 +47,7 @@ type WopiDiscovery struct {
 
 func main() {
 	fmt.Println("s")
-	fmt.Println(repo.Version())
+	// fmt.Println(repo.Version())
 	xx := &WopiDiscovery{}
 	config.LoadXMLFromURL("", xx)
 	fmt.Println(xx.XMLName)
