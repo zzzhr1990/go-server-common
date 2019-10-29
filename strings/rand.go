@@ -12,6 +12,9 @@ const (
 	letterIdxMax  = 63 / letterIdxBits   // # of letter indices fitting in 63 bits
 )
 
+const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+const numCharset = "0123456789"
+
 //RandString for strings
 func RandString(n int) string {
 	if n < 0 {
@@ -33,4 +36,25 @@ func RandString(n int) string {
 	}
 
 	return string(b)
+}
+
+// NewRandStringWithCharset but slow
+func NewRandStringWithCharset(length int, charset string) string {
+	b := make([]byte, length)
+	var seededRand *rand.Rand = rand.New(
+		rand.NewSource(time.Now().UnixNano()))
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
+}
+
+// NewRandString just rand
+func NewRandString(length int) string {
+	return NewRandStringWithCharset(length, charset)
+}
+
+// NewRandNumberString return num
+func NewRandNumberString(length int) string {
+	return NewRandStringWithCharset(length, numCharset)
 }
