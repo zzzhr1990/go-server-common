@@ -1,5 +1,6 @@
 package strings_test
 
+/*
 import (
 	"testing"
 
@@ -22,3 +23,4 @@ func TestMD5String(t *testing.T) {
 		So(res, ShouldEqual, "dad52b5719e3202e32a6619e14d0ccec")
 	})
 }
+*/

@@ -1,5 +1,6 @@
 package strings_test
 
+/*
 import (
 	"testing"
 
@@ -19,3 +20,5 @@ func TestRandString(t *testing.T) {
 		So(strings.RandString(-1), ShouldBeEmpty)
 	})
 }
+
+*/
