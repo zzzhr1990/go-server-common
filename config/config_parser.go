@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -11,7 +12,7 @@ import (
 
 	"encoding/xml"
 
-	log "github.com/sirupsen/logrus"
+	// log "github.com/sirupsen/logrus"
 
 	"net/http"
 
@@ -22,13 +23,13 @@ func parseYaml(yamlPath string, out interface{}) error {
 	//yaml.UnmarshalStrict
 	yamlFile, err := ioutil.ReadFile(yamlPath)
 	if err != nil {
-		log.Printf("Read yaml file error %v #%v ", yamlPath, err)
+		// log.Printf("Read yaml file error %v #%v ", yamlPath, err)
 		return err
 	}
 
 	dErr := yaml.Unmarshal(yamlFile, out)
 	if dErr != nil {
-		log.Printf("Decode yaml file error %v #%v ", yamlPath, dErr)
+		// log.Printf("Decode yaml file error %v #%v ", yamlPath, dErr)
 		return dErr
 	}
 	return nil
@@ -53,7 +54,7 @@ func loadYamlFromURL(configURL string, out interface{}) error {
 	body, err := ioutil.ReadAll(resp.Body)
 	dErr := yaml.Unmarshal(body, out)
 	if dErr != nil {
-		log.Printf("Decode yaml file error %v #%v ", configURL, dErr)
+		// log.Printf("Decode yaml file error %v #%v ", configURL, dErr)
 		return dErr
 	}
 	return nil
@@ -68,13 +69,9 @@ func LoadYamlFromURL(configURL string, out interface{}) error {
 			tryTime = tryTime - 1
 			time.Sleep(time.Second * 5)
 			err = loadYamlFromURL(configURL, out)
-			if err != nil {
-				log.Errorf("load config: %v err %v, retry...%v", configURL, err, tryTime)
-			}
+
 		}
-		if err != nil {
-			log.Errorf("load config give up %v", err)
-		}
+
 	}
 	return err
 }
@@ -99,17 +96,19 @@ func LoadXMLFromURL(configURL string, out interface{}) error {
 	body, err := ioutil.ReadAll(resp.Body)
 	dErr := xml.Unmarshal(body, out)
 	if dErr != nil {
-		log.Printf("Decode yaml file error %v #%v ", configURL, dErr)
+		// log.Printf("Decode yaml file error %v #%v ", configURL, dErr)
 		return dErr
 	}
 	return nil
 }
 
 // LoadYaml load config
-func LoadYaml(out interface{}) error {
-	log.SetFormatter(&log.TextFormatter{
-		FullTimestamp: true,
-	})
+func LoadYaml(out interface{}, infoOut func(string)) error {
+	/*
+		log.SetFormatter(&log.TextFormatter{
+			FullTimestamp: true,
+		})
+	*/
 	configPath := ""
 	configFile := ""
 	flag.StringVar(&configPath, "config-path", "", "Config file path")
@@ -118,23 +117,32 @@ func LoadYaml(out interface{}) error {
 	flag.StringVar(&configURL, "config-url", "", "Config file configURL")
 	flag.Parse()
 	if len(configURL) > 0 {
-		log.Printf("Loading config file from URL: %v", configURL)
+		if infoOut != nil {
+			infoOut(fmt.Sprintf("loading config file from URL: %v", configURL))
+		}
+		//
 		return LoadYamlFromURL(configURL, out)
 	}
 
 	if len(configPath) > 0 {
-		log.Printf("Loading config file from %v", configPath)
+		if infoOut != nil {
+			infoOut(fmt.Sprintf("Loading config file from %v", configPath))
+		}
 		return parseYaml(configPath, out)
 	}
 
 	if len(configFile) > 0 {
-		log.Printf("Loading config file from %v", configFile)
+		if infoOut != nil {
+			infoOut(fmt.Sprintf("loading config file from %v", configFile))
+		}
 		return parseYaml(configFile, out)
 	}
 	//
 	configURLInEnv := os.Getenv("CONFIG_URL")
 	if len(configURLInEnv) > 0 {
-		log.Printf("Loading config file from URL: %v", configURLInEnv)
+		if infoOut != nil {
+			infoOut(fmt.Sprintf("loading config file from URL: %v", configURLInEnv))
+		}
 		return LoadYamlFromURL(configURLInEnv, out)
 	}
 	configPathInEnv := os.Getenv("CONFIG_PATH")
@@ -142,17 +150,20 @@ func LoadYaml(out interface{}) error {
 		configPath = configPathInEnv
 	}
 	if len(configPath) < 1 {
-		//
-		log.Println("Config file path not set. Trying to use default config file.")
+		if infoOut != nil {
+			infoOut(fmt.Sprintf("config file path not set. Trying to use default config file."))
+		}
 		// read system to load file
 		fPath, err := loadDefaultConfigFile()
 		if err != nil {
-			log.Println("Config file path load error.")
+			// log.Println("Config file path load error.")
 			return err
 		}
 		configPath = fPath
 	}
-	log.Printf("Loading config file from %v", configPath)
+	if infoOut != nil {
+		infoOut(fmt.Sprintf("loading config file from %v", configPath))
+	}
 	err := parseYaml(configPath, out)
 
 	return err
