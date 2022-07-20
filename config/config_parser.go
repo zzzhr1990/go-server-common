@@ -1,5 +1,6 @@
 package config
 
+/*
 import (
 	"errors"
 	"flag"
@@ -104,11 +105,7 @@ func LoadXMLFromURL(configURL string, out interface{}) error {
 
 // LoadYaml load config
 func LoadYaml(out interface{}, infoOut func(string)) error {
-	/*
-		log.SetFormatter(&log.TextFormatter{
-			FullTimestamp: true,
-		})
-	*/
+
 	configPath := ""
 	configFile := ""
 	flag.StringVar(&configPath, "config-path", "", "Config file path")
@@ -179,3 +176,5 @@ func loadDefaultConfigFile() (string, error) {
 	path := string(s[0:i+1]) + "default-config.yml"
 	return path, nil
 }
+
+*/

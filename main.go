@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/xml" // import "github.com/zzzhr1990/go-server-common/repo"
 	"fmt"
-
-	"github.com/zzzhr1990/go-server-common/config"
 )
 
 // WopiDiscovery WP
@@ -49,6 +47,6 @@ func main() {
 	fmt.Println("s")
 	// fmt.Println(repo.Version())
 	xx := &WopiDiscovery{}
-	config.LoadXMLFromURL("", xx)
+	//config.LoadXMLFromURL("", xx)
 	fmt.Println(xx.XMLName)
 }
